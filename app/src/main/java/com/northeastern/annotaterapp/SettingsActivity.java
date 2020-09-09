@@ -3,7 +3,6 @@ package com.northeastern.annotaterapp;
 import static com.northeastern.annotaterapp.Constants.INTERVAL_TIME;
 
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -17,7 +16,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
-import com.northeastern.annotaterapp.services.AskService;
 import com.northeastern.annotaterapp.workers.ListenWorker;
 import java.util.concurrent.TimeUnit;
 
@@ -64,7 +62,7 @@ public class SettingsActivity extends AppCompatActivity {
                 TableRow.LayoutParams params = new TableRow.LayoutParams(
                         TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
                 params.weight = 1;
-                params.gravity = Gravity.LEFT;
+                params.gravity = Gravity.START;
 
                 TextView timestamp = new TextView(this);
                 timestamp.setLayoutParams(params);
