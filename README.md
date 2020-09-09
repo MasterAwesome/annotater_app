@@ -22,6 +22,7 @@ We will start with the phone, but then it would be outstanding if the app also w
 
 ### Proof of working
 
+#### 15 minute auto start
 ```
 09-09 00:57:55.335 23100 25443 D ListenWorker: doWork
 09-09 00:57:55.346 23100 25429 I WM-WorkerWrapper: Worker result SUCCESS for Work [ id=5d04a82f-87a5-463a-82c6-d009fe09af43, tags={ com.northeastern.annotaterapp.worker.ListenWorker } ]
@@ -55,3 +56,44 @@ We will start with the phone, but then it would be outstanding if the app also w
 09-09 01:12:59.776 23100 23100 V Listener: =====================================
 09-09 01:12:59.776 23100 23100 D AskService: onDestroy
 ```
+
+#### invalid input & no input test
+```
+09-09 02:26:12.524 32454  4931 D ListenWorker: doWork
+09-09 02:26:12.530 32454  4928 I WM-WorkerWrapper: Worker result SUCCESS for Work [ id=b13aef54-54f9-476f-a65a-8ef630b36f87, tags={ com.northeastern.annotaterapp.workers.ListenWorker, asker } ]
+09-09 02:26:12.541 32454 32454 D AskService: Service started!
+09-09 02:26:12.549 32454 32454 D IAskRecorderImpl: getOneSentence
+09-09 02:26:12.550 32454 32454 D AskService: listening...
+09-09 02:26:12.672 32454 32454 V Listener: onReadyForSpeech
+09-09 02:26:13.786 32454 32454 V Listener: onBeginningOfSpeech
+09-09 02:26:14.564 32454 32454 V Listener: onEndofSpeech
+09-09 02:26:14.653 32454 32454 V Listener: error 7
+09-09 02:26:14.653 32454 32454 D AskService: Error 7 (NO_INPUT) retrying!
+09-09 02:26:14.653 32454 32454 D AskService: Retrying 1 out of 3 times
+09-09 02:26:14.654 32454 32454 D IAskRecorderImpl: getOneSentence
+09-09 02:26:14.654 32454 32454 D AskService: listening...
+09-09 02:26:14.718 32454 32454 V Listener: onReadyForSpeech
+09-09 02:26:15.971 32454 32454 V Listener: onBeginningOfSpeech
+09-09 02:26:17.950 32454 32454 V Listener: onEndofSpeech
+09-09 02:26:18.040 32454 32454 D Listener: Speech recognition results obtained!
+09-09 02:26:18.040 32454 32454 V Listener: =====================================
+09-09 02:26:18.043 32454 32454 V Listener: 1. cleaning
+09-09 02:26:18.044 32454 32454 D AskService: Invalid activity!
+09-09 02:26:18.044 32454 32454 D AskService: Retrying 2 out of 3 times
+09-09 02:26:18.044 32454 32454 D IAskRecorderImpl: getOneSentence
+09-09 02:26:18.044 32454 32454 D AskService: listening...
+09-09 02:26:18.044 32454 32454 V Listener: =====================================
+09-09 02:26:18.140 32454 32454 V Listener: onReadyForSpeech
+09-09 02:26:20.412 32454 32454 V Listener: onBeginningOfSpeech
+09-09 02:26:22.015 32454 32454 V Listener: onEndofSpeech
+09-09 02:26:22.096 32454 32454 D Listener: Speech recognition results obtained!
+09-09 02:26:22.097 32454 32454 V Listener: =====================================
+09-09 02:26:22.098 32454 32454 V Listener: 1. I am cooking
+09-09 02:26:22.099 32454 32454 D AskService: Valid data [I am cooking] obtained
+09-09 02:26:22.100 32454 32454 D LogTableUtils: Pushing into the log table!
+09-09 02:26:22.153 32454 32454 V Listener: =====================================
+09-09 02:26:22.153 32454 32454 D AskService: onDestroy
+```
+
+### Screenshots
+![SettingsActivity.java](SettingsActivity.png)
