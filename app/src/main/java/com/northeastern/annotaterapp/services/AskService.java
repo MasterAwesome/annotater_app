@@ -33,14 +33,15 @@ public class AskService extends Service implements ICallback {
     @Override
     public void handleCallback(StatusCode statusCode, String data) {
         if (statusCode == StatusCode.SUCCESS) {
-            Log.d(LOG_TAG, data);
             if (!validator.isValid(data)) {
+                Log.d(LOG_TAG, "Invalid activity!");
                 if (--mMaxTry > 0)
                     startSpeechEngine();
                 else
                     stopSelf(); // 3 failed attempts.
             } else {
                 mMaxTry = 3;
+                Log.d(LOG_TAG, "Valid data [" + data + "] obtained");
                 LogTableUtils.updateTable(this, data);
                 stopSelf();
             }
