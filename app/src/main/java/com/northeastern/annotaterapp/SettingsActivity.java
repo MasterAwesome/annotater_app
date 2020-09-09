@@ -100,13 +100,10 @@ public class SettingsActivity extends AppCompatActivity {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             Log.d(LOG_TAG, "Switch is " + (isChecked ? "enabled" : "disabled"));
-            Intent service = new Intent(ctx, AskService.class);
 
             if (isChecked) {
-                ctx.startService(service);
                 setupPeriodicWorker();
             } else {
-                ctx.stopService(service);
                 teardownPeriodicWorker();
             }
         }
