@@ -53,7 +53,13 @@ public class AskService extends Service implements ICallback {
         }
     }
 
-    private void startSpeechEngine() { mAskImpl.getOneSentence(); }
+    private void startSpeechEngine() {
+        if (mMaxTry != 3) {
+            Log.d(LOG_TAG, "Retrying " + (3 - mMaxTry) + " out of 3 times");
+        }
+
+        mAskImpl.getOneSentence();
+    }
 
     @Override
     public void onCreate() {
