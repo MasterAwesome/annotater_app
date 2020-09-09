@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">AnnotaterApp</string>
+    <string name="heading"><u>Current Data in SQL</u></string>
+</resources>
