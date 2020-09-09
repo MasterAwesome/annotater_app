@@ -31,7 +31,7 @@ public final class LogTableUtils {
 
         ContentValues cv = new ContentValues();
         cv.put("TIMESTAMP", text);
-        cv.put("ACTIVITY", activity);
+        cv.put("ACTIVITY", activity.trim());
         db.insert("log", null, cv);
 
         db.close();
