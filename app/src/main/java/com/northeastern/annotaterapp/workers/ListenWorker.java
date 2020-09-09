@@ -3,11 +3,9 @@ package com.northeastern.annotaterapp.workers;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
-
 import com.northeastern.annotaterapp.services.AskService;
 
 /**
@@ -37,5 +35,4 @@ public class ListenWorker extends Worker {
         mContext.startForegroundService(new Intent(mContext, AskService.class));
         return Result.success();
     }
-
 }

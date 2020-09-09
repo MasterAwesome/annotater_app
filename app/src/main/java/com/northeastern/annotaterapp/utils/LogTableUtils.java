@@ -1,14 +1,13 @@
 package com.northeastern.annotaterapp.utils;
 
+import static com.northeastern.annotaterapp.Constants.DATE_FORMAT;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
-import static com.northeastern.annotaterapp.Constants.DATE_FORMAT;
 
 /**
  * Utils class that helps with database operations specifically the Log table.

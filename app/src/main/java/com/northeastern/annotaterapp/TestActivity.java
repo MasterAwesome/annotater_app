@@ -6,9 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.northeastern.annotaterapp.tagger.IAskDefault;
 import com.northeastern.annotaterapp.tagger.speech.IAskRecorderImpl;
 
@@ -17,7 +15,6 @@ import com.northeastern.annotaterapp.tagger.speech.IAskRecorderImpl;
  */
 @Deprecated
 public class TestActivity extends AppCompatActivity implements ICallback {
-
     private static final int RECORD_REQUEST_CODE = 11;
     private Button record;
     private TextView status;
@@ -35,8 +32,9 @@ public class TestActivity extends AppCompatActivity implements ICallback {
 
         // If the user previously denied this permission then show a message explaining why
         // this permission is needed
-        if (activity.checkCallingOrSelfPermission(requiredPermission) == PackageManager.PERMISSION_DENIED) {
-            activity.requestPermissions(new String[]{requiredPermission}, 101);
+        if (activity.checkCallingOrSelfPermission(requiredPermission)
+                == PackageManager.PERMISSION_DENIED) {
+            activity.requestPermissions(new String[] {requiredPermission}, 101);
         }
     }
 

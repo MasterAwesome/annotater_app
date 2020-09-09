@@ -1,5 +1,7 @@
 package com.northeastern.annotaterapp;
 
+import static com.northeastern.annotaterapp.Constants.INTERVAL_TIME;
+
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -11,18 +13,13 @@ import android.widget.CompoundButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
-
 import com.northeastern.annotaterapp.services.AskService;
 import com.northeastern.annotaterapp.workers.ListenWorker;
-
 import java.util.concurrent.TimeUnit;
-
-import static com.northeastern.annotaterapp.Constants.INTERVAL_TIME;
 
 /**
  * This is the default activity. It has a toggle and allows the user to turn the worker on or off.
@@ -37,16 +34,16 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         TestActivity.requestRecordAudioPermission(this);
-        work = new PeriodicWorkRequest.Builder(ListenWorker.class, INTERVAL_TIME, TimeUnit.MINUTES).addTag("asker").build();
+        work = new PeriodicWorkRequest.Builder(ListenWorker.class, INTERVAL_TIME, TimeUnit.MINUTES)
+                       .addTag("asker")
+                       .build();
 
         initComponents();
 
         initDatabase();
     }
 
-    private void setupPeriodicWorker() {
-        WorkManager.getInstance(this).enqueue(work);
-    }
+    private void setupPeriodicWorker() { WorkManager.getInstance(this).enqueue(work); }
 
     private void teardownPeriodicWorker() {
         WorkManager.getInstance(this).cancelAllWorkByTag("asker");
@@ -64,7 +61,8 @@ public class SettingsActivity extends AppCompatActivity {
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
                 TableRow baseTableRow = new TableRow(this);
-                TableRow.LayoutParams params = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
+                TableRow.LayoutParams params = new TableRow.LayoutParams(
+                        TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
                 params.weight = 1;
                 params.gravity = Gravity.LEFT;
 
@@ -72,7 +70,6 @@ public class SettingsActivity extends AppCompatActivity {
                 timestamp.setLayoutParams(params);
                 String timestampString = cursor.getString(cursor.getColumnIndex("TIMESTAMP"));
                 timestamp.setText(timestampString);
-
 
                 TextView activity = new TextView(this);
                 activity.setLayoutParams(params);
@@ -98,9 +95,7 @@ public class SettingsActivity extends AppCompatActivity {
     private class AskServiceCheckedListener implements CompoundButton.OnCheckedChangeListener {
         private final Context ctx;
 
-        public AskServiceCheckedListener(Context ctx) {
-            this.ctx = ctx;
-        }
+        public AskServiceCheckedListener(Context ctx) { this.ctx = ctx; }
 
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

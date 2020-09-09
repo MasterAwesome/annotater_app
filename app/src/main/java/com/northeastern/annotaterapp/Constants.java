@@ -27,5 +27,4 @@ public final class Constants {
      * Format of timestamp needed for logging activities.
      */
     public static final String DATE_FORMAT = "yyyy-MM-dd H:m:s";
-
 }

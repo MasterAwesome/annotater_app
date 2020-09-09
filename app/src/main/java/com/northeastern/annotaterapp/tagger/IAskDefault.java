@@ -1,7 +1,6 @@
 package com.northeastern.annotaterapp.tagger;
 
 import android.content.Context;
-
 import com.northeastern.annotaterapp.ICallback;
 
 public abstract class IAskDefault implements IAsk {
