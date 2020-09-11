@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">AnnotaterApp</string>
     <string name="heading"><u>Current Data in SQL</u></string>
+    <string name="enable_activity_monitor">Enable activity monitor</string>
+    <string name="heading_timestamp">Timestamp</string>
+    <string name="heading_activity">Activity</string>
+    <string name="btn_record">Record</string>
 </resources>

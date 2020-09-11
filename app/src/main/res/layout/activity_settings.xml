@@ -9,7 +9,7 @@
         android:id="@+id/enable"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Enable activity monitor" />
+        android:text="@string/enable_activity_monitor" />
 
     <TextView
         android:id="@+id/heading"
@@ -41,7 +41,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="start"
-                    android:text="Timestamp"
+                    android:text="@string/heading_timestamp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -49,7 +49,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="start"
-                    android:text="Activity"
+                    android:text="@string/heading_activity"
                     android:textStyle="bold" />
 
             </TableRow>
