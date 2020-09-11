@@ -17,7 +17,6 @@ import com.northeastern.annotaterapp.tagger.speech.IAskRecorderImpl;
  */
 @Deprecated
 public class TestActivity extends AppCompatActivity implements ICallback {
-    private static final int RECORD_REQUEST_CODE = 11;
     private Button record;
     private TextView status;
 
