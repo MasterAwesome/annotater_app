@@ -1,5 +1,7 @@
 package com.northeastern.annotaterapp;
 
+import static com.northeastern.annotaterapp.utils.PermissionUtils.requestRecordAudioPermission;
+
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -25,17 +27,6 @@ public class TestActivity extends AppCompatActivity implements ICallback {
         setContentView(R.layout.activity_main);
         requestRecordAudioPermission(this);
         initComponents();
-    }
-
-    public static void requestRecordAudioPermission(AppCompatActivity activity) {
-        String requiredPermission = Manifest.permission.RECORD_AUDIO;
-
-        // If the user previously denied this permission then show a message explaining why
-        // this permission is needed
-        if (activity.checkCallingOrSelfPermission(requiredPermission)
-                == PackageManager.PERMISSION_DENIED) {
-            activity.requestPermissions(new String[] {requiredPermission}, 101);
-        }
     }
 
     private void initComponents() {

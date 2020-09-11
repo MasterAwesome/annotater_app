@@ -1,6 +1,7 @@
 package com.northeastern.annotaterapp;
 
 import static com.northeastern.annotaterapp.Constants.INTERVAL_TIME;
+import static com.northeastern.annotaterapp.utils.PermissionUtils.requestRecordAudioPermission;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -36,7 +37,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         mSharedPreferences = getPreferences(Context.MODE_PRIVATE);
 
-        TestActivity.requestRecordAudioPermission(this);
+        requestRecordAudioPermission(this);
 
         work = new PeriodicWorkRequest.Builder(ListenWorker.class, INTERVAL_TIME, TimeUnit.MINUTES)
                        .addTag("asker")
