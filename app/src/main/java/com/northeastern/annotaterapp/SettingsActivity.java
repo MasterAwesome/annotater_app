@@ -41,6 +41,14 @@ public class SettingsActivity extends AppCompatActivity {
         initDatabase();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        int totalRows = dbDisplay.getChildCount();
+        dbDisplay.removeViews(1, totalRows - 1);
+        initDatabase();
+    }
+
     private void setupPeriodicWorker() { WorkManager.getInstance(this).enqueue(work); }
 
     private void teardownPeriodicWorker() {
