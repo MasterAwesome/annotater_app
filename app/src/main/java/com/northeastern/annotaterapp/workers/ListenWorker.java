@@ -2,6 +2,7 @@ package com.northeastern.annotaterapp.workers;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.work.Worker;
@@ -32,7 +33,13 @@ public class ListenWorker extends Worker {
     @Override
     public Result doWork() {
         Log.d(LOG_TAG, "doWork");
-        mContext.startForegroundService(new Intent(mContext, AskService.class));
+        Intent listenerService = new Intent(mContext, AskService.class);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            mContext.startForegroundService(listenerService);
+        } else {
+            mContext.startService(listenerService);
+        }
         return Result.success();
     }
 }

@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
 import androidx.annotation.Nullable;
@@ -67,19 +68,31 @@ public class AskService extends Service implements ICallback {
 
         Log.d(LOG_TAG, "Service started!");
         String CHANNEL_ID = "my_channel_01";
-        NotificationChannel channel = new NotificationChannel(
-                CHANNEL_ID, "Channel human readable title", NotificationManager.IMPORTANCE_DEFAULT);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID,
+                    "Channel human readable title", NotificationManager.IMPORTANCE_DEFAULT);
 
-        ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE))
-                .createNotificationChannel(channel);
+            ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE))
+                    .createNotificationChannel(channel);
 
-        Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
-                                            .setContentTitle("Activity recording has started!")
-                                            .setContentText("detecting now..")
-                                            .build();
+            Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
+                                                .setContentTitle("Activity recording has started!")
+                                                .setContentText("detecting now..")
+                                                .build();
 
-        startForeground(1, notification);
+            startForeground(1, notification);
+        } else {
+            NotificationCompat.Builder builder =
+                    new NotificationCompat.Builder(this)
+                            .setContentTitle("Activity recording has started!")
+                            .setContentText("detecting now..")
+                            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                            .setAutoCancel(true);
 
+            Notification notification = builder.build();
+
+            startForeground(1, notification);
+        }
         startSpeechEngine();
     }
 
