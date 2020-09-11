@@ -70,6 +70,7 @@ public class AskService extends Service implements ICallback {
         mAskImpl.getOneSentence();
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void onCreate() {
         super.onCreate();
