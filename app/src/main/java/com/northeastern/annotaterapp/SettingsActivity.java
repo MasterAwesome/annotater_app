@@ -3,6 +3,7 @@ package com.northeastern.annotaterapp;
 import static com.northeastern.annotaterapp.Constants.INTERVAL_TIME;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -26,18 +27,22 @@ public class SettingsActivity extends AppCompatActivity {
     private final String LOG_TAG = this.getClass().getSimpleName();
     private PeriodicWorkRequest work;
     private TableLayout dbDisplay;
+    private SharedPreferences mSharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
+        mSharedPreferences = getPreferences(Context.MODE_PRIVATE);
+
         TestActivity.requestRecordAudioPermission(this);
+
         work = new PeriodicWorkRequest.Builder(ListenWorker.class, INTERVAL_TIME, TimeUnit.MINUTES)
                        .addTag("asker")
                        .build();
 
         initComponents();
-
         initDatabase();
     }
 
@@ -49,9 +54,13 @@ public class SettingsActivity extends AppCompatActivity {
         initDatabase();
     }
 
-    private void setupPeriodicWorker() { WorkManager.getInstance(this).enqueue(work); }
+    private void setupPeriodicWorker() {
+        mSharedPreferences.edit().putBoolean("worker_enabled", true).apply();
+        WorkManager.getInstance(this).enqueue(work);
+    }
 
     private void teardownPeriodicWorker() {
+        mSharedPreferences.edit().putBoolean("worker_enabled", false).apply();
         WorkManager.getInstance(this).cancelAllWorkByTag("asker");
     }
 
@@ -95,6 +104,8 @@ public class SettingsActivity extends AppCompatActivity {
     private void initComponents() {
         SwitchCompat enable = findViewById(R.id.enable);
         enable.setOnCheckedChangeListener(new AskServiceCheckedListener(this));
+        if (mSharedPreferences.getBoolean("worker_enabled", false))
+            enable.setChecked(true);
         dbDisplay = findViewById(R.id.sqlDisplay);
     }
 
