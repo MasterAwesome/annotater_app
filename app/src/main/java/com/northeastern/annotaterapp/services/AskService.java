@@ -3,6 +3,7 @@ package com.northeastern.annotaterapp.services;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +13,8 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import com.northeastern.annotaterapp.ICallback;
+import com.northeastern.annotaterapp.R;
+import com.northeastern.annotaterapp.SettingsActivity;
 import com.northeastern.annotaterapp.tagger.IAskDefault;
 import com.northeastern.annotaterapp.tagger.speech.IAskRecorderImpl;
 import com.northeastern.annotaterapp.utils.LogTableUtils;
@@ -27,6 +30,7 @@ import com.northeastern.annotaterapp.validators.IValidator;
  */
 public class AskService extends Service implements ICallback {
     private static final String LOG_TAG = AskService.class.getSimpleName();
+    private static final int NOTIFICATION_ID = 1335;
     private final IAskDefault mAskImpl = new IAskRecorderImpl(this, this);
     private final IValidator validator = new ActivityValidator();
     private int mMaxTry = 3;
@@ -67,8 +71,16 @@ public class AskService extends Service implements ICallback {
         super.onCreate();
 
         Log.d(LOG_TAG, "Service started!");
-        String CHANNEL_ID = "my_channel_01";
+        Intent settingsIntent = new Intent(this, SettingsActivity.class);
+        settingsIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        settingsIntent.setAction(Intent.ACTION_MAIN);
+        settingsIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(
+                this, 0, settingsIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            String CHANNEL_ID = "my_channel_01";
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID,
                     "Channel human readable title", NotificationManager.IMPORTANCE_DEFAULT);
 
@@ -78,20 +90,28 @@ public class AskService extends Service implements ICallback {
             Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
                                                 .setContentTitle("Activity recording has started!")
                                                 .setContentText("detecting now..")
+                                                .setContentIntent(pendingIntent)
+                                                .setSmallIcon(R.mipmap.ic_launcher)
+                                                .setAutoCancel(true)
+                                                .setDeleteIntent(pendingIntent)
                                                 .build();
 
-            startForeground(1, notification);
+            startForeground(NOTIFICATION_ID, notification);
         } else {
             NotificationCompat.Builder builder =
                     new NotificationCompat.Builder(this)
                             .setContentTitle("Activity recording has started!")
                             .setContentText("detecting now..")
                             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                            .setAutoCancel(true)
+                            .setDeleteIntent(pendingIntent)
+                            .setContentIntent(pendingIntent)
+                            .setSmallIcon(R.mipmap.ic_launcher)
                             .setAutoCancel(true);
 
             Notification notification = builder.build();
 
-            startForeground(1, notification);
+            startForeground(NOTIFICATION_ID, notification);
         }
         startSpeechEngine();
     }
@@ -104,6 +124,7 @@ public class AskService extends Service implements ICallback {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        super.onStartCommand(intent, flags, startId);
         return START_REDELIVER_INTENT;
     }
 
