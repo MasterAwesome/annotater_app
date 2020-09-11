@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import com.northeastern.annotaterapp.ICallback;
@@ -48,6 +49,9 @@ public class AskService extends Service implements ICallback {
                 mMaxTry = 3;
                 Log.d(LOG_TAG, "Valid data [" + data + "] obtained");
                 LogTableUtils.updateTable(this, data);
+                Toast.makeText(this, "You said [" + data + "]. I'll ask you again in 15minutes!",
+                             Toast.LENGTH_LONG)
+                        .show();
                 stopSelf();
             }
         } else if (statusCode == StatusCode.IN_PROGRESS) {
