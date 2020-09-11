@@ -49,11 +49,11 @@ public class TestActivity extends AppCompatActivity implements ICallback {
                 status.setText(data);
                 break;
             case IN_PROGRESS:
-                status.setText("listening...");
+                status.setText(getResources().getString(R.string.listening));
                 break;
             case FAILURE:
             default:
-                status.setText("Failed to recognize something went wrong?!");
+                status.setText(getResources().getString(R.string.failure_def));
         }
     }
 }

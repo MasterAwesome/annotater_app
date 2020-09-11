@@ -5,4 +5,6 @@
     <string name="heading_timestamp">Timestamp</string>
     <string name="heading_activity">Activity</string>
     <string name="btn_record">Record</string>
+    <string name="listening">listening...</string>
+    <string name="failure_def">Failed to recognize something went wrong?!</string>
 </resources>
