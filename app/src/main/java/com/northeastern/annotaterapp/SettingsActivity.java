@@ -104,17 +104,13 @@ public class SettingsActivity extends AppCompatActivity {
 
     private void initComponents() {
         SwitchCompat enable = findViewById(R.id.enable);
-        enable.setOnCheckedChangeListener(new AskServiceCheckedListener(this));
+        enable.setOnCheckedChangeListener(new AskServiceCheckedListener());
         if (mSharedPreferences.getBoolean("worker_enabled", false))
             enable.setChecked(true);
         dbDisplay = findViewById(R.id.sqlDisplay);
     }
 
     private class AskServiceCheckedListener implements CompoundButton.OnCheckedChangeListener {
-        private final Context ctx;
-
-        public AskServiceCheckedListener(Context ctx) { this.ctx = ctx; }
-
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             Log.d(LOG_TAG, "Switch is " + (isChecked ? "enabled" : "disabled"));
