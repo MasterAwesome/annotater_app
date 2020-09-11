@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.Locale;
 
 /**
  * Utils class that helps with database operations specifically the Log table.
@@ -30,7 +31,7 @@ public final class LogTableUtils {
         String timestamp;
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-            timestamp = (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"))
+            timestamp = (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US))
                                 .format(Calendar.getInstance().getTime());
         } else {
             LocalDateTime date = LocalDateTime.now();
