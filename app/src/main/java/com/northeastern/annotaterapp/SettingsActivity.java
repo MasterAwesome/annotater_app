@@ -84,12 +84,13 @@ public class SettingsActivity extends AppCompatActivity {
 
                 TextView timestamp = new TextView(this);
                 timestamp.setLayoutParams(params);
-                String timestampString = cursor.getString(cursor.getColumnIndex("TIMESTAMP"));
+                String timestampString =
+                        cursor.getString(cursor.getColumnIndexOrThrow("TIMESTAMP"));
                 timestamp.setText(timestampString);
 
                 TextView activity = new TextView(this);
                 activity.setLayoutParams(params);
-                String activityString = cursor.getString(cursor.getColumnIndex("ACTIVITY"));
+                String activityString = cursor.getString(cursor.getColumnIndexOrThrow("ACTIVITY"));
                 activity.setText(activityString);
 
                 baseTableRow.addView(timestamp);
